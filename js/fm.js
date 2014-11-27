@@ -24,6 +24,9 @@ function update_progress() {
 }
 
 function m_play() {
+	if (oAudio.currentSrc==""){
+		next_music();
+	}
     if (oAudio.paused) {
         oAudio.play();
         btn.attr("class", "fa fa-pause");
@@ -55,9 +58,19 @@ function load_music_and_play(data){
     oAudio.play();
 }
 
+function load_music_and_play_less_info(data){
+    music_info = JSON.parse(data);
+    $("#player").attr("src", music_info.mp3);
+    $("#album").css("background-image", "url('" + music_info.cover + "')");
+    $('.title h1').html(music_info.title);
+    $('.title h2').html(music_info.artist);
+    oAudio.addEventListener('timeupdate', update_progress, false);
+    oAudio.play();
+}
+
 // function load_music() {
 //     $.get("player.php",{'A':'KA'}, load_music_and_play);
 // }
 
-window.onload = next_music;
+//window.onload = next_music;
 

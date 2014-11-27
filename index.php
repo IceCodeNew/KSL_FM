@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>个人电台</title>
+    <title>Key Sounds Label 电台</title>
     <link rel="stylesheet" type="text/css" href="css/fa.css" />
     <link rel="stylesheet" type="text/css" href="css/fm.css" />
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
@@ -36,7 +36,7 @@
     <script>
     <?php
     if(($_GET['album']) != '')
-        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play);}"; 
+        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play_less_info);}"; 
     else
         echo "function load_music() {\$.get('player.php', load_music_and_play);}"; 
     ?>    
