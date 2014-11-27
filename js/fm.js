@@ -6,7 +6,7 @@ album = $("#album");
 
 
 $('.control .home').click(function(){
-    window.open('http://music.163.com');
+    window.open('http://music.163.com/#/user/event?id=44366604');
 })
 $('.control .next').click(function(){
     oAudio.pause();
