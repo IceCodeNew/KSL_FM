@@ -106,7 +106,7 @@ function get_music_id() {
         }
     }
     $played[] = $id;
-    setcookie("played", json_encode($played), time() + 3600);
+    setcookie("played", json_encode($played), time() + 120);
     return $id;
 }
 
