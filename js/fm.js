@@ -45,17 +45,19 @@ function next_music() {
     album.addClass("playing");
 }
 
-function load_music() {
-    $.get("player.php", function (data) {
-        music_info = JSON.parse(data);
-        $("#player").attr("src", music_info.mp3);
-        $("#album").css("background-image", "url('" + music_info.cover + "')");
-        $('.title h1').html(music_info.title);
-        $('.title h2').html(music_info.artist+" &mdash; "+music_info.album);
-        oAudio.addEventListener('timeupdate', update_progress, false);
-        oAudio.play();
-    });
+function load_music_and_play(data){
+    music_info = JSON.parse(data);
+    $("#player").attr("src", music_info.mp3);
+    $("#album").css("background-image", "url('" + music_info.cover + "')");
+    $('.title h1').html(music_info.title);
+    $('.title h2').html(music_info.artist+" &mdash; "+music_info.album);
+    oAudio.addEventListener('timeupdate', update_progress, false);
+    oAudio.play();
 }
+
+// function load_music() {
+//     $.get("player.php",{'A':'KA'}, load_music_and_play);
+// }
 
 window.onload = next_music;
 

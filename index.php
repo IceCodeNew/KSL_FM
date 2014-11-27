@@ -33,5 +33,14 @@
         </div>
     </div>
     <script type="text/javascript" src="js/fm.js"></script>
+    <script>
+    <?php
+    if(($_GET['album']) != '')
+        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play);}"; 
+    else
+        echo "function load_music() {\$.get('player.php', load_music_and_play);}"; 
+    ?>    
+    </script>
+    
 </body>
 </html>

@@ -1,7 +1,8 @@
 <?php
-include 'list.php';
 include 'api.php';
-
+include 'list.php';
+if(($_GET['album']) != '')
+	$playlist_list =array($playlist_list[$_GET['album']]);
 
 foreach ($playlist_list as $key) {
     $json = get_playlist_info($key);
