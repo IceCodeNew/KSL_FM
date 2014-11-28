@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <title>Key Sounds Label 电台</title>
     <link rel="stylesheet" type="text/css" href="css/fa.css" />
     <link rel="stylesheet" type="text/css" href="css/fm.css" />
