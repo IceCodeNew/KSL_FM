@@ -35,10 +35,13 @@
     <script type="text/javascript" src="js/fm.js"></script>
     <script>
     <?php
-    if(($_GET['album']) != '')
-        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play_less_info);}"; 
-    else
-        echo "function load_music() {\$.get('player.php', load_music_and_play);}"; 
+    if(($_GET['album']) != ''){
+        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play_less_info);}";
+    }
+    else{
+        echo "function load_music() {\$.get('player.php', load_music_and_play);}";
+    	echo "window.onload = next_music;";
+    }
     ?>    
     </script>
     <script>

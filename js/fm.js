@@ -6,7 +6,7 @@ album = $("#album");
 
 
 $('.control .home').click(function(){
-    window.open('http://music.163.com/#/user/event?id=44366604');
+    window.open('http://ksl.oldcat.me/index_music.html');
 })
 $('.control .next').click(function(){
     oAudio.pause();
