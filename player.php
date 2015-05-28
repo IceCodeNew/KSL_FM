@@ -1,18 +1,20 @@
 <?php
 include 'api.php';
 include 'list.php';
+$playlist_cache_path='playlist_cache/'
+$song_cache_path='song_cache/'
 
 if(($_GET['album']) != '')
 	$playlist_list =array($playlist_list[$_GET['album']]);
 
 foreach ($playlist_list as $key => $value) {
-	if(file_exists('playlist_cache/'.$value.'.json')){
-		$arr=json_decode(file_get_contents('playlist_cache/'.$value.'.json'),true);
+	if(file_exists($playlist_cache_path.$value.'.json')){
+		$arr=json_decode(file_get_contents($playlist_cache_path.$value.'.json'),true);
 	}
 	else{
     	$json = get_playlist_info($value);
     	$arr = json_decode($json, true);
-    	file_put_contents('playlist_cache/'.$value.'.json', json_encode($arr));
+    	file_put_contents($playlist_cache_path.$value.'.json', json_encode($arr));
     }
     if(!in_array($key, $playlist_cache)){
     	$playlist_cache[$key]=$arr;
@@ -29,12 +31,12 @@ foreach ($playlist_list as $key => $value) {
 
 
 $id = get_music_id();
-if(file_exists('song_cache/'.$id.'.json')){
-	$music_info=json_decode(file_get_contents('song_cache/'.$id.'.json'),true);
+if(file_exists($song_cache_path.$id.'.json')){
+	$music_info=json_decode(file_get_contents($song_cache_path.$id.'.json'),true);
 }
 else{
 	$music_info = json_decode(get_music_info($id), true);
-	file_put_contents('song_cache/'.$id.'.json', json_encode($music_info));
+	file_put_contents($song_cache_path.$id.'.json', json_encode($music_info));
 }
 #echo json_encode($music_info);
 $play_info["cover"] = $music_info["songs"][0]["album"]["picUrl"];
