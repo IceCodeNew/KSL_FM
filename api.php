@@ -23,7 +23,7 @@ function music_search($word, $type) {
     );
     $referrer = "http://music.163.com/";
     $URL_Info = parse_url($url);
-    $values = [];
+    $values = array();
     $result = '';
     $request = '';
     foreach ($post_data as $key => $value) {

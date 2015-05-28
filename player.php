@@ -1,8 +1,16 @@
 <?php
 include 'api.php';
 include 'list.php';
-$playlist_cache_path='playlist_cache/'
-$song_cache_path='song_cache/'
+$dir_path='.';
+// $dir_path=getenv('MOPAAS_FILESYSTEM27563_LOCAL_PATH').'/'.getenv('MOPAAS_FILESYSTEM27563_NAME'); #mopaas virtual filesystem
+$playlist_cache_path=$dir_path.'/playlist_cache/';
+$song_cache_path=$dir_path.'/song_cache/';
+if(!file_exists($playlist_cache_path)){
+    mkdir($playlist_cache_path);
+}
+if(!file_exists($song_cache_path)){
+    mkdir($song_cache_path);
+}
 
 if(($_GET['album']) != '')
 	$playlist_list =array($playlist_list[$_GET['album']]);
