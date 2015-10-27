@@ -3,6 +3,7 @@
 oAudio = document.getElementById('player');
 btn = $("#m_play");
 album = $("#album");
+$.ajaxSetup({ cache: false });
 
 
 $('.control .home').click(function(){
