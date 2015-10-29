@@ -4,7 +4,7 @@
 #####歌曲设置
 - 修改list.php中的歌曲ID和歌单ID
 - 直接新建一個歌單給電臺使用就行了，簡單省事
-- playlist和song使用了json文件缓存，请正确设置playlist_cache 和 song_cache文件夹，并把权限设置为777
+- playlist和song使用了json文件缓存，请正确设置playlist_cache 和 lyric_cache文件夹，并把权限设置为777
 
 #####來瞧一下
 - 這個是自動播放的，第一首可能有點慢，攢點耐心，切歌也有點慢...

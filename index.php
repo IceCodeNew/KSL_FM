@@ -8,42 +8,43 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <title>Key Sounds Label 电台</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <link rel="stylesheet" type="text/css" href="css/fa.css" />
-    <link rel="stylesheet" type="text/css" href="css/fm.css" />
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-    <div class="control">
-        <div class="home"><i class="fa fa-home" title="Home"></i></div>
-        <div class="next"><i class="fa fa-chevron-right" title="Next"></i></div>
+    <div class="control-buttons">
+        <div class="fa-button home-button"><span class="fa fa-home" title="Home"></span></div>
+        <div class="fa-button next-button"><span class="fa fa-chevron-right" title="Next"></span></div>
     </div>
-    <div class="container">
-        <div class="player">
-            <div class="cd">
-                <div id="album" class="album"></div>
-                <div class="center">
-                    <span class="start"><i id="m_play" class="fa fa-play"></i></span>
-                </div>
-                <span class="progress">
-                    <span class="current"></span>
-                </span>
+<main class="main">
+        <div class="audio-player">
+            <div class="audio-album paused">
+                <img id="cover_img" src="img/key_logo.png" alt="album">
+                <div class="shade-layer"><span class="fa fa-play"></span></div>
             </div>
-            <section class="title">
-                <h1 class="name"></h1>
-                <h2 class="sub-title"></h2>
-            </section>
-            <audio id="player" src=""></audio>
+            <div class="audio-progress">
+                <div class="elapsed"></div>
+            </div>
         </div>
-    </div>
+        <div class="audio-info">
+                <div id="title" class="title"></div>
+                <div id="artist" class="artist"></div>
+                <div id="ksl_id" class="artist"></div>
+                <div id="lrc" class="lrc"></div>
+        </div>
+        <audio id="audio" src=""></audio>
+</main>
     <script type="text/javascript" src="js/fm.js"></script>
     <script>
     <?php
     if(($_GET['album']) != ''){
-        echo "function load_music() {\$.get('player.php', {'album':'" . $_GET['album']. "'}, load_music_and_play_less_info);}";
+        echo "var album_ID='".$_GET['album']."';";
     }
     else{
-        echo "function load_music() {\$.get('player.php', load_music_and_play);}";
-    	echo "window.onload = next_music;";
+        echo "var album_ID='';";
+    	echo "window.onload = loadMusic(album_ID);";
     }
     ?>    
     </script>

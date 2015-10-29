@@ -1,77 +1,94 @@
-//缺少错误处理, 把ID搞錯的話, 就手動點擊下一首吧
+var audio = $('#audio'),
+    album = $('.audio-album'),
+    cover = $('#cover_img'),
+    title = $('#title'),
+    artist = $('#artist'),
+    ksl_id = $('#ksl_id'),
+    lrc_row = $("#lrc"),
+    elapsed = $('.elapsed'),
+    shade = $('.shade-layer'),
+    lrc = "",
+    lrc_interval,
+    home = 'http://ksl.oldcat.me/index_music.html';  // homepage
 
-oAudio = document.getElementById('player');
-btn = $("#m_play");
-album = $("#album");
-$.ajaxSetup({ cache: false });
+jQuery(document).ready(function ($) {
+    $('.control-buttons').on('click', '.fa-button', function () {
+        var that = $(this);
 
+        if (that.hasClass('home-button')) {
+            window.open(home);
+        } else if (that.hasClass('next-button')) {
+            audio[0].pause();
+            loadMusic(album_ID);
+        }
+    });
 
-$('.control .home').click(function(){
-    window.open('http://ksl.oldcat.me/index_music.html');
-})
-$('.control .next').click(function(){
-    oAudio.pause();
-    next_music();
-})
-$('.container .center').click(function(){
-    m_play();
-})
-$("#player").bind("ended", function () {
-    next_music();
+    audio.on({
+        'playing': function () {
+            album.removeClass('paused');
+            shade.find('.fa').removeClass('fa-play').addClass('fa-pause');
+            if (lrc != " ") {
+                lrc_interval = setInterval("display_lrc()", 200);
+            }
+
+        },
+        'pause': function () {
+            album.addClass('paused');
+            shade.find('.fa').removeClass('fa-pause').addClass('fa-play');
+            clearInterval(lrc_interval);
+        },
+        'ended': function () {
+            clearInterval(lrc_interval);
+            loadMusic(album_ID);
+        },
+        'timeupdate': function () {
+            elapsed.css('width', audio[0].currentTime * 100 / audio[0].duration + '%');
+        },
+        'error': function () {
+            // console.log(-1);
+        }
+    });
+
+    audio[0].volume = 0.6;
+
+    shade.click(function () {
+        if (audio[0].paused){
+            audio[0].play();
+        }
+        else{
+            audio[0].pause();
+        } 
+    });
+
+    
 });
 
-function update_progress() {
-        $('body').width() > 422 ? $('.progress .current').css({'width': oAudio.currentTime / oAudio.duration * 100 + '%'}) + ($('.album img').css('opacity') != 1 ? $('.album img').css({'opacity': 1}) : '') : $('.album img').css({'opacity': 1.1 - oAudio.currentTime / oAudio.duration});
-}
-
-function m_play() {
-	if (oAudio.currentSrc==""){
-		next_music();
-	}
-    if (oAudio.paused) {
-        oAudio.play();
-        btn.attr("class", "fa fa-pause");
-        album.addClass("playing");
-        album.removeClass("paused");
+function loadMusic(album_ID) {
+    if (typeof album_ID === 'undefined') {
+        album_ID = ''; 
     }
-    else {
-        oAudio.pause();
-        btn.attr("class", "fa fa-play");
-        album.addClass("paused");
-    }
+    $.getJSON('player.php?_=' + $.now()+'&album='+album_ID, function (data) {
+        
+        audio.attr('src', data.mp3);
+        cover.attr({
+            'src': data.cover + '?param=350y350',
+            'data-src': data.cover
+        });
+        title.html(data.title);
+        artist.html(data.artist);
+        ksl_id.html(data.ksl_id);
+        audio[0].play();
+        lrc = data.lrc;
+        lrc_row.html(" ");
+
+    });
 }
 
-function next_music() {
-    album.removeClass("paused");
-    album.removeClass("playing");
-    load_music();
-    btn.attr("class", "fa fa-pause");
-    album.addClass("playing");
-}
+function display_lrc(){
+    var play_time = Math.floor(audio[0].currentTime*5).toString();
+    lrc_row.html(lrc[play_time]);
+    
+};
 
-function load_music_and_play(data){
-    music_info = JSON.parse(data);
-    $("#player").attr("src", music_info.mp3);
-    $("#album").css("background-image", "url('" + music_info.cover + "')");
-    $('.title h1').html(music_info.title);
-    $('.title h2').html(music_info.artist+" &mdash; "+music_info.album);
-    oAudio.addEventListener('timeupdate', update_progress, false);
-    oAudio.play();
-}
 
-function load_music_and_play_less_info(data){
-    music_info = JSON.parse(data);
-    $("#player").attr("src", music_info.mp3);
-    $("#album").css("background-image", "url('" + music_info.cover + "')");
-    $('.title h1').html(music_info.title);
-    $('.title h2').html(music_info.artist);
-    oAudio.addEventListener('timeupdate', update_progress, false);
-    oAudio.play();
-}
-
-// function load_music() {
-//     $.get("player.php",{'A':'KA'}, load_music_and_play);
-// }
-
-//window.onload = next_music;
 
