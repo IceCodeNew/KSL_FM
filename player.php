@@ -62,8 +62,8 @@ else{
 }
 
 //处理歌词
-if (isset($lrc_info["lrc"]["lyric"])) {
-    $lrc = explode("\n", $lrc_info["lrc"]["lyric"]);
+if (isset($lyric_info["lrc"]["lyric"])) {
+    $lrc = explode("\n", $lyric_info["lrc"]["lyric"]);
     $lrc_slot_per_sec=5; //200ms
     array_pop($lrc);
     foreach ($lrc as $rows) {

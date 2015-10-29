@@ -136,6 +136,12 @@ body { font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, "Hiragino Sa
     font-weight: normal;
     color: #666;
 }
+.audio-info .ksl_id {
+    margin: 0 0 .2em;
+    font-size: 1.0em;
+    font-weight: normal;
+    color: #666;
+}
 .audio-info .title::before { content: "\300c"; }
 .audio-info .title::after { content: "\300d"; }
 

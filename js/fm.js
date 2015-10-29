@@ -76,7 +76,10 @@ function loadMusic(album_ID) {
         });
         title.html(data.title);
         artist.html(data.artist);
-        ksl_id.html(data.ksl_id);
+        ksl_id.html(data.album);
+        ksl_id.attr({
+            'title' : data.ksl_id
+        });
         audio[0].play();
         lrc = data.lrc;
         lrc_row.html(" ");
