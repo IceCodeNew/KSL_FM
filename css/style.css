@@ -50,11 +50,12 @@ body { font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, "Hiragino Sa
 
 .main {
     margin: .5em;
-    padding-top: 10%;
+    padding-top: 5%;
 }
 .audio-player {
     margin: 0 auto;
-    width: 20em;
+    width: 100%;
+    max-width: 20em;
     height: auto;
 }
 .audio-album {

@@ -5,9 +5,11 @@ var audio = $('#audio'),
     artist = $('#artist'),
     ksl_id = $('#ksl_id'),
     lrc_row = $("#lrc"),
+    tlrc_row = $("#tlrc"),
     elapsed = $('.elapsed'),
     shade = $('.shade-layer'),
     lrc = "",
+    tlrc = "",
     lrc_interval,
     home = 'http://ksl.oldcat.me/index_music.html';  // homepage
 
@@ -27,7 +29,7 @@ jQuery(document).ready(function ($) {
         'playing': function () {
             album.removeClass('paused');
             shade.find('.fa').removeClass('fa-play').addClass('fa-pause');
-            if (lrc != " ") {
+            if (lrc != " " || tlrc != " ") {
                 lrc_interval = setInterval("display_lrc()", 200);
             }
 
@@ -53,7 +55,12 @@ jQuery(document).ready(function ($) {
 
     shade.click(function () {
         if (audio[0].paused){
-            audio[0].play();
+        	if (audio[0].src.search('.mp3')<0){
+        		loadMusic(album_ID);
+        	}
+        	else{
+        		audio[0].play();
+        	}    
         }
         else{
             audio[0].pause();
@@ -83,6 +90,8 @@ function loadMusic(album_ID) {
         audio[0].play();
         lrc = data.lrc;
         lrc_row.html(" ");
+        tlrc = data.tlrc;
+        tlrc_row.html(" ");
 
     });
 }
@@ -90,7 +99,7 @@ function loadMusic(album_ID) {
 function display_lrc(){
     var play_time = Math.floor(audio[0].currentTime*5).toString();
     lrc_row.html(lrc[play_time]);
-    
+    tlrc_row.html(tlrc[play_time]);    
 };
 
 
