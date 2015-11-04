@@ -35,6 +35,7 @@
                 <div id="ksl_id" class="ksl_id"></div>
                 <div id="lrc" class="lrc"></div>
                 <div id="tlrc" class="lrc"></div>
+                <div id="volume" class="lrc"></div>
         </div>
         <audio id="audio" src=""></audio>
 </main>
