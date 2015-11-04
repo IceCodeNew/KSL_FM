@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <link rel="stylesheet" type="text/css" href="css/fa.css" />
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.hotkeys.js"></script>
 </head>
 <body>
     <div class="control-buttons">

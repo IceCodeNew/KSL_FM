@@ -14,6 +14,10 @@ var audio = $('#audio'),
     home = 'http://ksl.oldcat.me/index_music.html';  // homepage
 
 jQuery(document).ready(function ($) {
+    $(document).bind('keydown', 'n', function(){
+        loadMusic(album_ID);
+    });
+
     $('.control-buttons').on('click', '.fa-button', function () {
         var that = $(this);
 
