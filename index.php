@@ -10,14 +10,15 @@
     <title>Key Sounds Label 电台</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
-    <link rel="stylesheet" type="text/css" href="css/fa.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.hotkeys.js"></script>
 </head>
 <body>
     <div class="control-buttons">
         <div class="fa-button home-button"><span class="fa fa-home" title="Home"></span></div>
-        <div class="fa-button next-button"><span class="fa fa-chevron-right" title="Next"></span></div>
+        <div class="fa-button next-button"><span class="fa fa-step-forward" title="Next"></span></div>
+        <div class="fa-button chrome-extension"><span class="fa fa-chrome" title="Chrome Extension"></span></div>
     </div>
 <main class="main">
         <div class="audio-player">

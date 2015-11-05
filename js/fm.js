@@ -47,9 +47,13 @@ jQuery(document).ready(function ($) {
 
         if (that.hasClass('home-button')) {
             window.open(home);
-        } else if (that.hasClass('next-button')) {
+        }
+        else if (that.hasClass('next-button')) {
             audio[0].pause();
             loadMusic(album_ID);
+        }
+        else if (that.hasClass('chrome-extension')) {
+            window.open('https://chrome.google.com/webstore/detail/key-sounds-label-fm/hljmofdmkkbjcnegokhlhnginjambmpf');
         }
     });
 
