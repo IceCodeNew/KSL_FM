@@ -1,2 +1,6 @@
-
+playlist_cache
+song_cache
+lyric_cache
 config.codekit
+
+js/min/fm-min.js
