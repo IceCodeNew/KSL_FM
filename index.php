@@ -15,10 +15,13 @@
     <script type="text/javascript" src="js/jquery.hotkeys.js"></script>
 </head>
 <body>
-    <div class="control-buttons">
-        <div class="fa-button home-button"><span class="fa fa-home" title="Home"></span></div>
+    <div class="control-buttons">        
         <div class="fa-button next-button"><span class="fa fa-step-forward" title="Next"></span></div>
-        <div class="fa-button chrome-extension"><span class="fa fa-chrome" title="Chrome Extension"></span></div>
+        <div class="fa-button trash-button"><span class="fa fa-trash-o" title="Never Play Again"></span></div>
+        <div class="fa-button more-button"><span id="more-button" class="fa fa-caret-down" title="More..."></span></div>
+        <div class="fa-button fa-button-hide home-button "><span class="fa fa-home" title="Home"></span></div>
+        <div class="fa-button fa-button-hide option-button"><span class="fa fa-cog" title="Option"></span></div>
+        <div class="fa-button fa-button-hide chrome-extension"><span class="fa fa-chrome" title="Chrome Extension"></span></div>
     </div>
 <main class="main">
         <div class="audio-player">

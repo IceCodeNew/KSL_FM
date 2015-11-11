@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>Key Sounds Label 电台</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.dynatable.css" />
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dynatable.js"></script>
+    <script type="text/javascript" src="js/options.js"></script>
+</head>
+<body>
+<main class="main" align="center">
+
+<div class="container">
+<div class="h4">那些被你加入黑名单的歌曲</div>
+<div>
+<a onclick="deleteBlacklist();">reset blacklist</a>
+<table id="my_table" class="table table-bordered table-hover table-striped">
+      <thead>
+          <tr>
+              <th data-dynatable-column="title">Title</th>
+              <th data-dynatable-column="artist">Artist</th>
+              <th data-dynatable-column="album">Album</th>
+              <th data-dynatable-column="ksl_id">KSL ID</th>
+              <th data-dynatable-column="delete">Delete</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+</div>
+<br/><br/>
+
+<div class="h4">小提示</div>
+<ul>
+  <li>按n键或右方向键切换下一首</li>
+  <li>按空格键或p键播放或暂停</li>
+  <li>按上下方向键控制音量</li>
+</ul>
+
+
+
+</div>
+<div class="footer">音乐仅供试听；图片和音乐版权归属于原版权人所有</div>
+<br/>
+<div class="footer" >webpage made by: oldcat</div>
+<div class="footer">version: 1.2.3</div>
+</main>
+
+</body>
+</html>

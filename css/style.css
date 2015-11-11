@@ -38,6 +38,9 @@ body { font-family: "Helvetica Neue", "Segoe UI", Helvetica, Arial, "Hiragino Sa
     transition: background-color .3s;
     cursor: pointer;
 }
+.fa-button-hide {
+    display: none;
+}
 .fa-button:hover {
     background-color: rgba(0, 0, 0, .6);
 }
