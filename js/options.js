@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
 
     black_sid_table=[]
     for (var key in black_sid){
-        black_sid[key]["delete"]="<a onclick=deleteBlacklist("+key+");>删除</a>";
+        black_sid[key]["delete"]="<a class='delete-button' id='sid"+key+"';>删除</a>";
         black_sid_table.push(black_sid[key])
     }
 
@@ -23,6 +23,13 @@ jQuery(document).ready(function ($) {
     }).data('dynatable');
     // dynatable.sorts.add('rank', 1)
     dynatable.process();
+
+    $('.delete-button').click(function(){
+        deleteBlacklist(this.id.replace('sid',''));
+    });
+    $('.delete-all-button').click(function(){
+        deleteBlacklist();
+    });
 });
 
 
