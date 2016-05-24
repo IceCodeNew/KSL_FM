@@ -40,6 +40,8 @@ else{
 }
 
 // print_r($arr);
+$songURL=json_decode(file_get_contents('output.json'),true);
+// print_r($songURL);
 $playlist_result=$arr["result"];
 $trackCount = $playlist_result["trackCount"];
 $rand_track = $playlist_result["tracks"][rand(0, $trackCount - 1)];
@@ -50,7 +52,7 @@ $play_info["album"]=$rand_track["album"]["name"];
 $play_info["title"]=$rand_track["name"];
 $play_info["artist"]=$rand_track["artists"][0]["name"];
 // $play_info["mp3"]=$rand_track["mp3Url"];
-$play_info["mp3"]=encrypted_url($rand_track["lMusic"]["dfsId"]);
+$play_info["mp3"]=$songURL[$rand_track["id"]]["urlm"];
 $play_info["sid"]=$rand_track["id"];
 
 if(file_exists($lyric_cache_path.$rand_track_id.'.json')){
