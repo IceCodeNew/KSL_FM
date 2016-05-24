@@ -1,7 +1,7 @@
 <?php
 function curl_get($url) {
     $refer = "http://music.163.com/";
-    $header[] = "Cookie: " . "appver=1.5.0.75771;";
+    $header[] = "Cookie: " . "appver=2.0.2;";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
@@ -11,6 +11,28 @@ function curl_get($url) {
     $output = curl_exec($ch);
     curl_close($ch);
     return $output;
+}
+
+function encrypted_id($id) {
+    $byte1 = str_split('3go8&$8*3*3h0k(2)2');
+    $byte2 = str_split(strval($id));
+    
+    $byte1_len = count($byte1);
+    $byte2_len = count($byte2);
+    
+    for($i = 0; $i < $byte2_len; $i++){
+        $byte2[$i] = $byte2[$i] ^ $byte1[($i % $byte1_len)];
+    } 
+    $md5 = md5(implode($byte2), $raow_output=True);
+    $result = base64_encode($md5);
+    $result = str_replace('/', '_', $result);
+    $result = str_replace('+', '-', $result);
+    return $result;
+}
+
+function encrypted_url($id) {
+    $eid = encrypted_id($id);
+    return "http://p".rand(1,2).".music.126.net/".$eid."/".strval($id).".mp3";
 }
 
 function music_search($word, $type) {

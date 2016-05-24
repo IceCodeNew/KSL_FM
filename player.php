@@ -49,7 +49,8 @@ $play_info["ksl_id"] = $rand_key;
 $play_info["album"]=$rand_track["album"]["name"];
 $play_info["title"]=$rand_track["name"];
 $play_info["artist"]=$rand_track["artists"][0]["name"];
-$play_info["mp3"]=$rand_track["mp3Url"];
+// $play_info["mp3"]=$rand_track["mp3Url"];
+$play_info["mp3"]=encrypted_url($rand_track["lMusic"]["dfsId"]);
 $play_info["sid"]=$rand_track["id"];
 
 if(file_exists($lyric_cache_path.$rand_track_id.'.json')){
