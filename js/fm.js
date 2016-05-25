@@ -129,7 +129,7 @@ function loadMusic(album_ID) {
     if (typeof album_ID === 'undefined') {
         album_ID = ''; 
     }
-    $.getJSON('player.php?_=' + $.now()+'&album='+album_ID, function (data) {
+    $.getJSON('api/KSL/'+album_ID, function (data) {
         sid=data["sid"];
         black_sid = localStorage.getItem("kslm_blacksid")
         black_sid = black_sid ? JSON.parse(black_sid) : {};
@@ -137,7 +137,7 @@ function loadMusic(album_ID) {
         if(!(sid in black_sid)){
             data_bg=data;
 
-            audio.attr('src', data.mp3);
+            audio.attr('src', data.url);
             cover.attr({
                 'src': data.cover + '?param=350y350',
                 'data-src': data.cover
@@ -149,7 +149,7 @@ function loadMusic(album_ID) {
                 'title' : data.ksl_id
             });
             audio[0].play();
-            lrc = data.lrc;
+            lrc = data.olrc;
             lrc_row.html(" ");
             tlrc = data.tlrc;
             tlrc_row.html(" ");
