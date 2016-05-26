@@ -1,6 +1,14 @@
 jQuery(document).ready(function ($) {
-    
-    black_sid = localStorage.getItem("kslm_blacksid")
+
+    br = getBitRate();
+    resetBitRateButton(br);
+    $('.br-btn').click(function(){
+        br=this.id.replace('brBtn', '');
+        resetBitRateButton(br);
+        setBitRate(br);
+    });
+
+    black_sid = localStorage.getItem("kslm_blacksid");
     black_sid = black_sid ? JSON.parse(black_sid) : {};
 
     black_sid_table=[]
@@ -56,5 +64,52 @@ function deleteBlacklist(item_key){
     location.reload();
     // dynatable.dom.update;
 };
+
+function setBitRate(br){
+    if(typeof(Storage) === "undefined" || br===null) {
+        return;
+    }
+    if(br === ''){
+        br=192;
+    }
+    br = localStorage.setItem("bitrate", br);
+}
+
+function resetBitRateButton(br){
+    brStatus=[0, 0, 0];
+    brBtnID=['#96brBtn', '#192brBtn', '#320brBtn'];
+    if(br<=96){
+        brStatus[0]=1;
+    }
+    else{
+        if(br>=320){
+            brStatus[2]=1;
+        }
+        else{
+            brStatus[1]=1;
+        }
+    }
+
+    for (var i = 0; i<brStatus.length ; i++) {
+        if(brStatus[i]>0){
+            $(brBtnID[i]).addClass("btn-success");
+        }
+        else{
+            if($(brBtnID[i]).hasClass("btn-success")){
+                $(brBtnID[i]).removeClass("btn-success");
+            }
+        }
+    }
+}
+
+function getBitRate(){
+    default_br=192;
+    if(typeof(Storage) === "undefined") {
+        br = default_br;
+    }
+    br = localStorage.getItem("bitrate");
+    br = br ? br : default_br;
+    return br;
+}
 
 

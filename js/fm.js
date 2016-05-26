@@ -187,3 +187,23 @@ function setBlacklist(item_data){
 
 };
 
+function setBitRate(br){
+    if(typeof(Storage) === "undefined" || item_data===null) {
+        return;
+    }
+    if(br === '' || br === null ){
+        br=192;
+    }
+    br = localStorage.setItem("bitrate", br);
+}
+
+function getBitRate(){
+    default_br=192;
+    if(typeof(Storage) === "undefined" || item_data===null) {
+        return default_br;
+    }
+    br = localStorage.getItem("bitrate");
+    br = br ? br : default_br;
+    return br;
+}
+
