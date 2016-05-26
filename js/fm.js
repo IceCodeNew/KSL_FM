@@ -13,7 +13,7 @@ var audio = $('#audio'),
     tlrc = "",
     lrc_interval,
     volume = $('#volume'),
-    home = 'http://ksl.oldcat.me/index_music.html';  // homepage
+    home = 'http://kslm.oldcat.me/';  // homepage
     option_url = 'http://kslm.oldcat.me/options.html';  // homepage
 
 jQuery(document).ready(function ($) {
