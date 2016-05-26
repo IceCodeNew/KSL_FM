@@ -7,6 +7,9 @@ import random
 import newAPI as music163
 import playlist
 import pickle
+import json
+from functools import wraps
+from flask import redirect, request, current_app
 
 app = Flask(__name__)
 cacheSong={}
@@ -14,11 +17,26 @@ cachePlaylist={}
 cacheLyric={}
 KSLdict=playlist.read_playlist()
 
+def support_jsonp(f):
+    """Wraps JSONified output for JSONP"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        callback = request.args.get('callback', False)
+        if callback:
+            content = str(callback) + '(' + str(f(*args,**kwargs).data) + ')'
+            return current_app.response_class(content, mimetype='application/javascript')
+        else:
+            return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/')
 def index():
     return "Hello, World!"
     
+@app.route('/test', methods=['GET'])
+@support_jsonp
+def test():
+    return jsonify({"foo":"bar"})
     
 @app.route('/song/<int:sid>/<int:br>', methods=['GET'])
 @app.route('/song/<int:sid>/', methods=['GET'])
