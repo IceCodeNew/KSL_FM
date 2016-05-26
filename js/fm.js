@@ -129,7 +129,14 @@ function loadMusic(album_ID) {
     if (typeof album_ID === 'undefined') {
         album_ID = ''; 
     }
-    $.getJSON('api/KSL/'+album_ID, function (data) {
+    if (album_ID != ''){
+        queryAlbumID = '/'+album_ID;
+    }
+    else{
+        queryAlbumID = '';
+    }
+    br = getBitRate();
+    $.getJSON('api/KSL' + queryAlbumID + '/' +br, function (data) {
         sid=data["sid"];
         black_sid = localStorage.getItem("kslm_blacksid")
         black_sid = black_sid ? JSON.parse(black_sid) : {};
@@ -187,19 +194,10 @@ function setBlacklist(item_data){
 
 };
 
-function setBitRate(br){
-    if(typeof(Storage) === "undefined" || item_data===null) {
-        return;
-    }
-    if(br === '' || br === null ){
-        br=192;
-    }
-    br = localStorage.setItem("bitrate", br);
-}
 
 function getBitRate(){
     default_br=192;
-    if(typeof(Storage) === "undefined" || item_data===null) {
+    if(typeof(Storage) === "undefined") {
         return default_br;
     }
     br = localStorage.getItem("bitrate");

@@ -77,8 +77,8 @@ function setBitRate(br){
 
 function resetBitRateButton(br){
     brStatus=[0, 0, 0];
-    brBtnID=['#96brBtn', '#192brBtn', '#320brBtn'];
-    if(br<=96){
+    brBtnID=['#128brBtn', '#192brBtn', '#320brBtn'];
+    if(br<=128){
         brStatus[0]=1;
     }
     else{

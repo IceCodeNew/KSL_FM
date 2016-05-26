@@ -112,11 +112,15 @@ def get_playlist(pid, output_format='json'):
     else:
         return jsonify(**data)
 
-
+@app.route('/KSL/<KSLid>/<int:br>/', methods=['GET'])
+@app.route('/KSL/<KSLid>/<int:br>', methods=['GET'])
+@app.route('/KSL/<KSLid>/', methods=['GET'])
 @app.route('/KSL/<KSLid>', methods=['GET'])
+@app.route('/KSL/<int:br>/', methods=['GET'])
+@app.route('/KSL/<int:br>', methods=['GET'])
 @app.route('/KSL/', methods=['GET'])
 @app.route('/KSL', methods=['GET'])
-def get_KSL(KSLid=''):
+def get_KSL(KSLid='', br=192):
     if not KSLid:
         KSLid = random.choice(KSLdict.keys())
     if KSLid in KSLdict:
@@ -136,7 +140,9 @@ def get_KSL(KSLid=''):
     output_data['album'] = song_data['album']
     output_data['artist'] = song_data['artist']
     output_data['title'] = song_data['title']
-    output_data['url'] = get_song(song_data['id'], output_format='inner')['url']
+    detail_song_data = get_song(song_data['id'], br=br, output_format='inner')
+    output_data['url'] = detail_song_data['url']
+    output_data['br'] = detail_song_data['br']
     output_data['ksl_id'] = KSLid
     output_data['sid'] = song_data['id']
     lyric = get_lyric(song_data['id'], output_format='inner')
@@ -161,10 +167,10 @@ if __name__ == '__main__':
             cachePlaylist, cacheLyric = pickle.load(cacheFile)
     except:
         print 'not found cache'
-        for kid, pid in sorted(KSLdict.items()):
-            print kid
-            pl_data=get_playlist(pid, output_format='inner')
-            for track in pl_data['tracks']:
-                song_data=get_lyric(track['id'], output_format='inner')
-        cacheFile=open('cache.db', 'wb')
-        pickle.dump((cachePlaylist, cacheLyric), cacheFile)
+#         for kid, pid in sorted(KSLdict.items()):
+#             print kid
+#             pl_data=get_playlist(pid, output_format='inner')
+#             for track in pl_data['tracks']:
+#                 song_data=get_lyric(track['id'], output_format='inner')
+#         cacheFile=open('cache.db', 'wb')
+#         pickle.dump((cachePlaylist, cacheLyric), cacheFile)
