@@ -29,11 +29,13 @@ def aesEncrypt(text, secKey):
     ciphertext = base64.b64encode(ciphertext)
     return ciphertext
 
-
 #sids=[id1, id2]...
-def get_songs_url(sids, bit_rate=192000):
-    secKey = createSecretKey(16)
-    encSecKey = rsaEncrypt(secKey, pubKey, modulus)
+def get_songs_url(sids, bit_rate=192000, secKey=None, encSecKey=None):
+    if secKey == None:
+        secKey = createSecretKey(16)
+    if encSecKey == None:
+        encSecKey = rsaEncrypt(secKey, pubKey, modulus)
+   
     session = requests.Session()
     action = 'http://music.163.com/weapi/song/enhance/player/url?csrf_token='
     # csrf = '2afc3af6ef8b0a6c1116c8af0f96796b'
@@ -49,7 +51,6 @@ def get_songs_url(sids, bit_rate=192000):
             'encSecKey': encSecKey,
             'params': encText,
     }
-
     connection = session.post(
         action,
         data=data,
@@ -58,7 +59,7 @@ def get_songs_url(sids, bit_rate=192000):
         print 'This song is not available'
     if connection.status_code != 200:
         print 'get_song_url failed - wrong code'
-        return false
+        return False
     result = json.loads(connection.content)
     return result['data']
 
@@ -154,4 +155,5 @@ def get_lyric(sid, slot_perSec=5):
     lyric['tlrc']=tlrc
     return lyric
 
-# print get_lyric_info(760955)
+    
+# print get_songs_url([414523831])

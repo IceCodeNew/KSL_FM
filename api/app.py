@@ -29,19 +29,22 @@ def support_jsonp(f):
             return f(*args, **kwargs)
     return decorated_function
 
+
 @app.route('/')
 def index():
     return "Hello, World!"
-    
+
+
 @app.route('/test', methods=['GET'])
 @support_jsonp
 def test():
     return jsonify({"foo":"bar"})
-    
+
+
 @app.route('/song/<int:sid>/<int:br>', methods=['GET'])
 @app.route('/song/<int:sid>/', methods=['GET'])
 @app.route('/song/<int:sid>', methods=['GET'])
-def get_song(sid, br=192, output_format='json'):
+def get_song(sid, br=192, output_format='json', secKey=None, encSecKey=None):
     data={}
     if sid in cacheSong:
         if br in cacheSong[sid]:
@@ -49,7 +52,7 @@ def get_song(sid, br=192, output_format='json'):
                 if cacheSong[sid][br]['expire']>datetime.datetime.now():
                     data=cacheSong[sid][br]
     if not data:
-        data = music163.get_songs_url([sid], bit_rate=br*1000)
+        data = music163.get_songs_url([sid], bit_rate=br*1000, secKey=secKey, encSecKey=encSecKey)
         if len(data)==0:
             abort(404)
         if not data[0]['url']:
@@ -101,9 +104,9 @@ def get_playlist(pid, output_format='json'):
     data={}
     if pid in cachePlaylist:
         data=cachePlaylist[pid]
-    
-    if not data:
+    else:
         data = music163.get_playlist_info(pid)
+        print 'aa'
         if 'tracks' not in data:
             abort(404)
         
@@ -130,21 +133,37 @@ def get_playlist(pid, output_format='json'):
     else:
         return jsonify(**data)
 
-@app.route('/KSL/<KSLid>/<int:br>/', methods=['GET'])
-@app.route('/KSL/<KSLid>/<int:br>', methods=['GET'])
-@app.route('/KSL/<KSLid>/', methods=['GET'])
-@app.route('/KSL/<KSLid>', methods=['GET'])
-@app.route('/KSL/<int:br>/', methods=['GET'])
-@app.route('/KSL/<int:br>', methods=['GET'])
-@app.route('/KSL/', methods=['GET'])
-@app.route('/KSL', methods=['GET'])
-def get_KSL(KSLid='', br=192):
-    if not KSLid:
-        KSLid = random.choice(KSLdict.keys())
-    if KSLid in KSLdict:
-        pid = KSLdict[KSLid]
-    else:
+# @app.route('/KSL/<KSLid>/<int:br>/', methods=['GET'])
+# @app.route('/KSL/<KSLid>/<int:br>', methods=['GET'])
+# @app.route('/KSL/<KSLid>/', methods=['GET'])
+# @app.route('/KSL/<KSLid>', methods=['GET'])
+# @app.route('/KSL/<int:br>/', methods=['GET'])
+# @app.route('/KSL/<int:br>', methods=['GET'])
+# Read encSecKey from client, to speed up server response
+@app.route('/KSL/', methods=['POST'])
+@app.route('/KSL', methods=['POST'])
+def get_KSL():
+    if not request.json:
         abort(404)
+        
+    if 'encSecKey' not in request.json or 'secKey' not in request.json:
+        abort(404)
+    if 'br' not in request.json:
+        br=192
+    else:
+        br=int(request.json['br'])
+        
+    if 'KSLid' not in request.json:
+        KSLid = random.choice(KSLdict.keys())
+    else:
+        if not request.json['KSLid']:
+            KSLid = random.choice(KSLdict.keys())
+        else:
+            if request.json['KSLid'] in KSLdict:
+                KSLid = request.json['KSLid']
+            else:
+                abort(404)
+    pid = KSLdict[KSLid]
 
     pl_data =get_playlist(pid, output_format='inner')
     if pl_data['trackCount']>1:
@@ -158,7 +177,7 @@ def get_KSL(KSLid='', br=192):
     output_data['album'] = song_data['album']
     output_data['artist'] = song_data['artist']
     output_data['title'] = song_data['title']
-    detail_song_data = get_song(song_data['id'], br=br, output_format='inner')
+    detail_song_data = get_song(song_data['id'], br=br, output_format='inner', secKey=request.json['secKey'], encSecKey=request.json['encSecKey'])
     output_data['url'] = detail_song_data['url']
     output_data['br'] = detail_song_data['br']
     output_data['ksl_id'] = KSLid
@@ -176,19 +195,18 @@ def not_found(error):
         
         
 if __name__ == '__main__':
-    
 
-    app.run(debug=True)
-    
     try:
         with open('/var/www/kslm/api/cache.db', 'r') as cacheFile:
             cachePlaylist, cacheLyric = pickle.load(cacheFile)
     except:
         print 'not found cache'
-#         for kid, pid in sorted(KSLdict.items()):
-#             print kid
-#             pl_data=get_playlist(pid, output_format='inner')
-#             for track in pl_data['tracks']:
-#                 song_data=get_lyric(track['id'], output_format='inner')
-#         cacheFile=open('cache.db', 'wb')
-#         pickle.dump((cachePlaylist, cacheLyric), cacheFile)
+        # for kid, pid in sorted(KSLdict.items()):
+        #     print kid
+        #     pl_data=get_playlist(pid, output_format='inner')
+        #     for track in pl_data['tracks']:
+        #         song_data=get_lyric(track['id'], output_format='inner')
+        # cacheFile=open('cache.db', 'wb')
+        # pickle.dump((cachePlaylist, cacheLyric), cacheFile)
+    app.run(debug=True)
+

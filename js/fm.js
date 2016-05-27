@@ -129,42 +129,52 @@ function loadMusic(album_ID) {
     if (typeof album_ID === 'undefined') {
         album_ID = ''; 
     }
-    if (album_ID != ''){
-        queryAlbumID = '/'+album_ID;
-    }
-    else{
-        queryAlbumID = '';
-    }
     br = getBitRate();
-    $.getJSON('api/KSL' + queryAlbumID + '/' +br, function (data) {
-        sid=data["sid"];
-        black_sid = localStorage.getItem("kslm_blacksid")
-        black_sid = black_sid ? JSON.parse(black_sid) : {};
+    var randomKey = createKeyAndEncSecKey(16);
 
-        if(!(sid in black_sid)){
-            data_bg=data;
+    var postData={
+        'secKey': randomKey.secKey,
+        'encSecKey': randomKey.encSecKey,
+        'KSLid': album_ID,
+        'br': parseInt(br)
+    };
 
-            audio.attr('src', data.url);
-            cover.attr({
-                'src': data.cover + '?param=350y350',
-                'data-src': data.cover
-            });
-            title.html(data.title);
-            artist.html(data.artist);
-            ksl_id.html(data.album);
-            ksl_id.attr({
-                'title' : data.ksl_id
-            });
-            audio[0].play();
-            lrc = data.olrc;
-            lrc_row.html(" ");
-            tlrc = data.tlrc;
-            tlrc_row.html(" ");
-        }
-        else{
-            loadMusic(album_ID);
-        }
+    $.ajax({
+        url: 'api/KSL',
+        dataType: 'json',
+        contentType: "application/json",
+        type: "POST",
+        data: JSON.stringify(postData),
+        success: function (data){
+            sid=data["sid"];
+            black_sid = localStorage.getItem("kslm_blacksid")
+            black_sid = black_sid ? JSON.parse(black_sid) : {};
 
+            if(!(sid in black_sid)){
+                data_bg=data;
+
+                audio.attr('src', data.url);
+                cover.attr({
+                    'src': data.cover + '?param=350y350',
+                    'data-src': data.cover
+                });
+                title.html(data.title);
+                artist.html(data.artist);
+                ksl_id.html(data.album);
+                ksl_id.attr({
+                    'title' : data.ksl_id
+                });
+
+                audio[0].play();
+                lrc = data.olrc;
+                lrc_row.html(" ");
+                tlrc = data.tlrc;
+                tlrc_row.html(" ");
+            }
+            else{
+                loadMusic(album_ID);
+            }
+        } 
     });
 }
 
