@@ -156,4 +156,4 @@ def get_lyric(sid, slot_perSec=5):
     return lyric
 
     
-# print get_songs_url([414523831])
+# print get_songs_url([287029])

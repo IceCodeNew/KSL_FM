@@ -44,7 +44,7 @@ def read_playlist():
     KSLdict["KSLA-0052"]=38606879
     KSLdict["KSLA-0053~0054"]=38612459
     KSLdict["KSLA-0055"]=38604934
-    # KSLdict[#"KSLA-0056"]=
+    # KSLdict["KSLA-0056"]=
     KSLdict["KSLA-0057"]=38623044
     KSLdict["KSLA-0058"]=38607920
     KSLdict["KSLA-0059~0060"]=38617030
@@ -93,16 +93,15 @@ def read_playlist():
     KSLdict["KSLC-0001~0002"]=38606855
     KSLdict["KSLC-0003"]=38607289
     KSLdict["KSLC-0004~0005"]=38604861
-    # KSLdict[#"KSLC-0006~0007"]=
+    # KSLdict["KSLC-0006~0007"]=
     KSLdict["KSLC-0008"]=38607829
-    # KSLdict[#"KSLC-0009"]=
-    # KSLdict[#"KSLC-0010~0011"]=
+    # KSLdict["KSLC-0009"]=
+    # KSLdict["KSLC-0010~0011"]=
     KSLdict["KSLC-0012"]=38622756
-    # KSLdict[#"KSLC-0013"]=
-    KSLdict["KSLC-0014"]=76780324
-    KSLdict["KSLC-0015"]=76777404
+    # KSLdict["KSLC-0013"]=
+    KSLdict["KSLC-0014~0015"]=76780324
 
-    # KSLdict[#"KSLV-0001~0003"]=
+    # KSLdict["KSLV-0001~0003"]=
     KSLdict["KSLV-0004~0006"]=38626073
     
     return KSLdict
